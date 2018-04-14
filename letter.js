@@ -8,7 +8,7 @@ var Letter = function (letter) {
 			return "_";
 	}
 	this.guess = function (player_guess) {
-		if (player_guess === this.hidden_letter)
+		if (player_guess === this.hidden_letter.toLowerCase())
 			this.guessed = true;
 
 	}

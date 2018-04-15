@@ -3,11 +3,15 @@ var inquirer = require("inquirer");
 var guesses_left = 7;
 var word = new Word("hello");
 var word_bank = ["Saruman", "Aragorn", "Sauron", "Morgoth", "Valaquenta", "Galadriel", "hobbit", "Teleri", "Beren"];
-var word_index = Math.floor(Math.random() * (word_bank.length + 1));
-word = new Word(word_bank[word_index]);
+function make_word() {
+	var word_index = Math.floor(Math.random() * (word_bank.length + 1));
+	word = new Word(word_bank[word_index]);
+	console.log("word is " + word);
+}
 //check if there are any underscores -- if underscores decreases, guess is correct
 //if it does not, guess is incorrect
 var prompt = function () {
+
 	var word_length = word.toString().length;
 	var underscores_count = 0;
 	for (let i = 0; i < word_length; i++) {
@@ -33,6 +37,7 @@ var prompt = function () {
 				}
 			}
 
+
 			if (underscores_count === tmp_underscores_count) {
 				guesses_left--;
 				console.log("You guessed wrong! " + "\n" + guesses_left + " guesses remaining");
@@ -43,6 +48,15 @@ var prompt = function () {
 			prompt();
 		});
 	}
-}
+	else if (guesses_left === 0)
+		console.log("Oh no, you've lost the game!");
+	else {
+		console.log("You've got it right! Next word!");
+		guesses_left = 7;
+		make_word();
+		prompt();
 
+	}
+}
+make_word();
 prompt();
